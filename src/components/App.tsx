@@ -14,7 +14,7 @@ function App() {
       <Banner />
       <Navbar toDos={toDos} setToDos={setToDos} />
       <div className='content'>
-        <ToDoList toDos={toDos} />
+        <ToDoList toDos={toDos} setToDos={setToDos} />
       </div>
     </div>
   )

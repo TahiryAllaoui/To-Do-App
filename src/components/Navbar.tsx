@@ -26,7 +26,6 @@ const Navbar = ({ toDos, setToDos }: { toDos: string[], setToDos: (toDosList: st
 
     const handle = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key == "Enter") {
-            console.log(e.key + "  " + input)
             setToDos([...toDos, input]);
             setToggle(false);
             setLabel("Add +");
@@ -44,12 +43,11 @@ const Navbar = ({ toDos, setToDos }: { toDos: string[], setToDos: (toDosList: st
                         <option value="unchecked">Unchecked</option>
                     </select>
                     <div className="modifyList">
-                        <button className="modify">Modify</button>
                         <button className="addToList" onClick={handleClick}>{label}</button>
                     </div>
                 </div>
             </nav>
-            {toggle && <input type="text" className='modify-list' placeholder='Type here' autoFocus onChange={handleKeyPress} onKeyUp={handle} />}
+            {toggle && <input type="text" className='modify-list' placeholder='Type here and press "Enter" to add' autoFocus onChange={handleKeyPress} onKeyUp={handle} />}
         </div>
     );
 };
