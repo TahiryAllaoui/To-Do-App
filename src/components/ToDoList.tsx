@@ -5,7 +5,6 @@ const ToDoList = ({ toDos, setToDos }: { toDos: string[], setToDos: (toDosList: 
     const handleDelete = (index: number) => {
         let deletedItemList: string[] = [...toDos];
         deletedItemList.splice(index, 1);
-        console.log(deletedItemList);
         setToDos(deletedItemList);
     }
 

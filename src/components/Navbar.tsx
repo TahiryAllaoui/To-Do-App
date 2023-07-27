@@ -14,6 +14,7 @@ const Navbar = ({ toDos, setToDos }: { toDos: string[], setToDos: (toDosList: st
         if (compteur % 2 == 0) {
             setToggle(false);
             setLabel("Add +");
+            setCompteur(1);
         }
         else {
             setToggle(true)
@@ -21,11 +22,11 @@ const Navbar = ({ toDos, setToDos }: { toDos: string[], setToDos: (toDosList: st
     }
 
     const handleKeyPress = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setInput(e.currentTarget.value)
+        setInput(e.currentTarget.value);
     }
 
     const handle = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key == "Enter") {
+        if (e.key == "Enter" && e.currentTarget.value != '') {
             setToDos([...toDos, input]);
             setToggle(false);
             setLabel("Add +");
@@ -47,7 +48,13 @@ const Navbar = ({ toDos, setToDos }: { toDos: string[], setToDos: (toDosList: st
                     </div>
                 </div>
             </nav>
-            {toggle && <input type="text" className='modify-list' placeholder='Type here and press "Enter" to add' autoFocus onChange={handleKeyPress} onKeyUp={handle} />}
+            {toggle && <input
+                type="text"
+                className='modify-list'
+                placeholder='Type here and press "Enter" to add'
+                autoFocus
+                onChange={handleKeyPress}
+                onKeyUp={handle} />}
         </div>
     );
 };
