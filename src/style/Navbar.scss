@@ -1,0 +1,59 @@
+.nav-main {
+    width: 75%;
+    height: 5%;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .navbar {
+
+        display: flex;
+        // flex-direction: column;
+        border: 2px solid white;
+        border-radius: 0.4rem;
+        width: 100%;
+        height: 100%;
+        justify-content: space-between;
+
+        .nav-item {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+
+            select {
+                background-color: white;
+                border: none;
+                width: 25%;
+                text-align: center;
+            }
+
+            .modifyList {
+                display: flex;
+                justify-content: space-between;
+                background-color: white;
+                width: 25%;
+
+                button {
+                    background-color: white;
+                    outline: none;
+                    border: none;
+                    width: 100%;
+                }
+
+                button:hover {
+                    background-color: #f2f2f2;
+                }
+            }
+        }
+
+    }
+
+    input {
+        border: 2px solid white;
+        border-radius: 0.4rem;
+        margin-top: 5px;
+        width: 100%;
+    }
+
+}
