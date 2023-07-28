@@ -21,11 +21,13 @@
             width: 100%;
             justify-content: space-between;
 
-            select {
+            .select {
                 background-color: white;
                 border: none;
                 width: 25%;
-                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .modifyList {

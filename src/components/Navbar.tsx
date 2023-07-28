@@ -33,16 +33,11 @@ const Navbar = ({ toDos, setToDos }: { toDos: string[], setToDos: (toDosList: st
         }
     }
 
-
     return (
         <div className='nav-main'>
             <nav className="navbar">
                 <div className='nav-item'>
-                    <select name="filter" id="filter">
-                        <option value="all">All ({toDos.length})</option>
-                        <option value="checked">Checked</option>
-                        <option value="unchecked">Unchecked</option>
-                    </select>
+                    {(toDos.length == 0 || toDos.length == 1) ? <div className="select">Note ({toDos.length})</div> : <div className="select">Notes ({toDos.length})</div>}
                     <div className="modifyList">
                         <button className="addToList" onClick={handleClick}>{label}</button>
                     </div>

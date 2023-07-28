@@ -5,8 +5,8 @@ const ToDo = ({ toDoInput }: { toDoInput: string }) => {
 
     return (
         <div className="to-do-input">
-            <input type="checkbox" name='todo' id='todo' />
-            <label htmlFor='todo'>{toDoInput}</label>
+            {/* <input type="checkbox" name='todo' id='todo' /> */}
+            <p>{toDoInput}</p>
         </div>
     );
 };
