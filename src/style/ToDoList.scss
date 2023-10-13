@@ -1,35 +1,47 @@
 .to-do {
-    width: 100%;
+  width: 100%;
 }
 
 .to-do-content {
-    margin-top: 5px;
-    border-radius: 0.5rem;
+  margin-top: 5px;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 95%;
+  height: auto;
+  border-top: 2px solid #f2f2f2;
+
+  .pop {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    width: 30%;
+    height: 30%;
+    border: #a6a5a5 solid 1px;
+    border-radius: 8px;
+    box-shadow: 0 0 50rem 50rem hsla(0, 0%, 0%, 0.171);
+    display: none;
+  }
+
+  .delet-button {
     display: flex;
+    flex-direction: column;
     align-items: flex-end;
-    justify-content: space-between;
-    width: 95%;
-    height: auto;
-    border-top: 2px solid #f2f2f2;
 
-    .delet-button {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-
-        button {
-            border: none;
-            background-color: white;
-            color: #a6a5a5;
-            border-radius: 0.3rem;
-        }
-
-        button:hover {
-            color: rgb(83, 83, 255);
-        }
+    button {
+      border: none;
+      background-color: white;
+      color: #a6a5a5;
+      border-radius: 0.3rem;
     }
+
+    button:hover {
+      color: rgb(83, 83, 255);
+    }
+  }
 }
 
 .to-do-content:hover {
-    box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.1);
 }
