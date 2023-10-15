@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "../style/ToDoList.scss";
 
 interface ITodo {
@@ -6,18 +7,19 @@ interface ITodo {
   createdAt: string;
 }
 
-const ToDoList = ({ toDos }: { toDos: ITodo[] }) => {
-  //   const handleDelete = (index: number) => {
-  //     // let deletedItemList: string[] = [...toDos];
-  //     // deletedItemList.splice(index, 1);
-  //     // setToDos(deletedItemList);
-  //     console.log("deleted");
-  //   };
-  //   const [todoItem, setTodoItem] = useState<ITodo>({
-  //     id: "",
-  //     content: "",
-  //     createdAt: "",
-  //   });
+const ToDoList = ({
+  toDos,
+  setToDos,
+}: {
+  toDos: ITodo[];
+  setToDos: (toDosList: ITodo[]) => void;
+}) => {
+  const [singleTodo, setSingleTodo] = useState<ITodo>({
+    id: "",
+    content: "",
+    createdAt: "",
+  });
+  const [pop, setPop] = useState(false);
 
   const handleSingleItem = (id: string) => {
     fetch("http://localhost:3000/" + id, {
@@ -26,26 +28,43 @@ const ToDoList = ({ toDos }: { toDos: ITodo[] }) => {
     })
       .then((res) => res.json())
       .then((data: any) => {
-        console.log(data);
-        // let tmp: ITodo[] = [];
-        // data.forEach((index: any) => {
-        //   let newItem: ITodo = {
-        //     id: index._id,
-        //     content: index.content,
-        //     createdAt: index.createdAt,
-        //   };
-        //   tmp.push(newItem);
-        //   console.log(tmp);
+        setSingleTodo({
+          id: data._id,
+          content: data.content,
+          createdAt: data.createdAt,
+        });
+        setPop(true);
       });
   };
-
   const handleDelete = (id: string) => {
     fetch("http://localhost:3000/" + id, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     })
-      .then(() => console.log("deleted"))
+      .then(() => {
+        fetch("http://localhost:3000", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((res) => res.json())
+          .then((datas) => {
+            let tmp: ITodo[] = [];
+            datas.forEach((item: any) =>
+              tmp.push({
+                id: item._id,
+                content: item.content,
+                createdAt: item.createdAt,
+              })
+            );
+            setToDos(tmp);
+          })
+          .catch((e) => console.log(e));
+      })
       .catch((e) => console.log("err: " + e));
+  };
+
+  const handleBack = () => {
+    setPop(false);
   };
 
   return (
@@ -69,6 +88,32 @@ const ToDoList = ({ toDos }: { toDos: ITodo[] }) => {
           </div>
         </li>
       ))}
+      {pop && (
+        <div
+          className="pop"
+          style={{
+            width: "35%",
+            height: "12rem",
+            border: "1px solid black",
+            borderRadius: "8px",
+            position: "absolute",
+            left: "30%",
+            top: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexDirection: "column",
+            backgroundColor: "white",
+            boxShadow: "0 0 50rem 50rem hsla(0, 0%, 0%, 0.171)",
+          }}
+        >
+          <h2>{singleTodo.content}</h2>
+          <h2>{singleTodo.createdAt}</h2>
+          <p style={{ color: "gray", cursor: "pointer" }} onClick={handleBack}>
+            Back
+          </p>
+        </div>
+      )}
     </ul>
   );
 };
