@@ -1,39 +1,41 @@
-import { useState } from "react";
 import "../style/ToDoList.scss";
 
 interface ITodo {
+  id: string;
   content: string;
   createdAt: string;
 }
 
-const ToDoList = ({ toDos }: { toDos: string[] }) => {
+const ToDoList = ({ toDos }: { toDos: ITodo[] }) => {
   //   const handleDelete = (index: number) => {
   //     // let deletedItemList: string[] = [...toDos];
   //     // deletedItemList.splice(index, 1);
   //     // setToDos(deletedItemList);
   //     console.log("deleted");
   //   };
-  const [todoItem, setTodoItem] = useState<ITodo>({
-    content: "",
-    createdAt: "",
-  });
+  //   const [todoItem, setTodoItem] = useState<ITodo>({
+  //     id: "",
+  //     content: "",
+  //     createdAt: "",
+  //   });
 
-  const handleSingleItem = (i: number) => {
-    fetch("http://localhost:3000", {
+  const handleSingleItem = (id: string) => {
+    fetch("http://localhost:3000/" + id, {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())
       .then((data: any) => {
         let tmp: ITodo[] = [];
-        data.forEach((i: any) => {
+        data.forEach((index: any) => {
           let newItem: ITodo = {
-            content: i.content,
-            createdAt: i.createdAt,
+            id: index._id,
+            content: index.content,
+            createdAt: index.createdAt,
           };
           tmp.push(newItem);
+          console.log(tmp);
         });
-        setTodoItem(tmp[i]);
       });
     let pop = document.querySelector(".pop") as HTMLElement;
     pop.style.display = "flex";
@@ -44,7 +46,7 @@ const ToDoList = ({ toDos }: { toDos: string[] }) => {
 
   const handleBack = () => {
     let pop = document.querySelector(".pop") as HTMLElement;
-    pop.style.opacity = "none";
+    pop.style.display = "none";
     console.log("back");
   };
 
@@ -61,14 +63,14 @@ const ToDoList = ({ toDos }: { toDos: string[] }) => {
         <li
           className="to-do-content"
           key={index}
-          onClick={() => handleSingleItem(index)}
+          onClick={() => handleSingleItem(todo.id)}
         >
           <div className="todoItem">
-            <p onClick={() => handleSingleItem(index)}>{todo}</p>
+            <p onClick={() => handleSingleItem(todo.id)}>{todo.content}</p>
           </div>
           <div className="pop">
-            <h2>{todoItem.content}</h2>
-            <p>On: {todoItem.createdAt}</p>
+            <h2>{todo.content}</h2>
+            <p>On: {todo.createdAt}</p>
             <p
               style={{ color: "gray", border: "1px solid black" }}
               onClick={handleBack}

@@ -1,12 +1,17 @@
 import { useState } from "react";
 import "../style/Navbar.scss";
+interface ITodo {
+  id: string;
+  content: string;
+  createdAt: string;
+}
 
 const Navbar = ({
   toDos,
   setToDos,
 }: {
-  toDos: string[];
-  setToDos: (toDosList: string[]) => void;
+  toDos: ITodo[];
+  setToDos: (toDosList: ITodo[]) => void;
 }) => {
   const [compteur, setCompteur] = useState(1);
   const [input, setInput] = useState("");
@@ -43,12 +48,15 @@ const Navbar = ({
           headers: { "Content-Type": "application/json" },
         })
           .then((res) => res.json())
-          .then((data) => {
-            let tmp: string[] = [];
-            data.forEach((i: any) => {
-              let newItem: string = i.content;
-              tmp.push(newItem);
-            });
+          .then((datas) => {
+            let tmp: ITodo[] = [];
+            datas.forEach((item: any) =>
+              tmp.push({
+                id: item._id,
+                content: item.content,
+                createdAt: item.createdAt,
+              })
+            );
             setToDos(tmp);
           })
           .catch((e) => console.log(e));

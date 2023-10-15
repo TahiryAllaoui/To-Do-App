@@ -4,8 +4,14 @@ import Banner from "./Banner";
 import Navbar from "./Navbar";
 import ToDoList from "./ToDoList";
 
+interface ITodo {
+  id: string;
+  content: string;
+  createdAt: string;
+}
+
 function App() {
-  const [toDos, setToDos] = useState<string[]>([]);
+  const [toDos, setToDos] = useState<ITodo[]>([]);
   useEffect(() => {
     fetch("http://localhost:3000", {
       method: "GET",
@@ -13,8 +19,14 @@ function App() {
     })
       .then((res) => res.json())
       .then((datas) => {
-        let tmp: string[] = [];
-        datas.forEach((item: any) => tmp.push(item.content));
+        let tmp: ITodo[] = [];
+        datas.forEach((item: any) =>
+          tmp.push({
+            id: item._id,
+            content: item.content,
+            createdAt: item.createdAt,
+          })
+        );
         setToDos(tmp);
       })
       .catch((e) => console.log(e));
